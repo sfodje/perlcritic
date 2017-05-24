@@ -182,7 +182,7 @@ function validate(textDocument: TextDocument): Promise<Output> {
 			});
 		}
 		catch (error) {
-			resolve(new Output('', "Some error"));
+			resolve(new Output('', error));
 			return;
 		}
 	});

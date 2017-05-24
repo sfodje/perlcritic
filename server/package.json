@@ -1,7 +1,7 @@
 {
   "name": "perlcritic-server",
   "description": "VSCode language server for perlcritic.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Scott Fodje",
   "license": "MIT",
   "engines": {
