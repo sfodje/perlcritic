@@ -159,7 +159,12 @@ documents.onDidClose((change) => {
 });
 
 function validate(textDocument: TextDocument): Promise<Output> {
-
+	const text = textDocument.getText().trim();
+	if (text == "") {
+		return new Promise((resolve, reject) => {
+			resolve(new Output("", ""))
+		});
+	}
 	return new Promise((resolve, reject) => {
 		try {
 			let spawn = child_process.spawn;
