@@ -3,7 +3,7 @@
   "displayName": "perlcritic",
   "description": "A Perl source code analyzer for VSCode",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "sfodje",
   "bugs": {
     "url": "https://github.com/sfodje/perlcritic/issues",
@@ -15,7 +15,7 @@
     "url": "https://github.com/sfodje/perlcritic"
   },
   "engines": {
-    "vscode": "^1.8.0"
+    "vscode": "^1.16.0"
   },
   "categories": [
     "Linters",
