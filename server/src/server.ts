@@ -122,6 +122,8 @@ class Output {
 
 		outputStr.split(/\[\[END\]\]/).forEach((critiqueText: string, i: number) => {
 			critiqueText = critiqueText.trim();
+			// remove ANSI escape code
+			critiqueText = critiqueText.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
 			let critique = new Critique(critiqueText);
 
 			if (critique.error) {
