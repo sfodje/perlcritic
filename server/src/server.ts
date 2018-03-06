@@ -71,7 +71,12 @@ class Settings {
 				return v;
 			}
 		});
-		this.options.push('--' + severity);
+		if (this.options.indexOf("--profile") === -1) {
+			// Only set severity if user does not specify a profile,
+			// because perlcritic will ignore the profile if severity is set.
+			// Tested on a Mac with perlcritic v1.130, Perl v5.26.1.
+			this.options.push('--' + severity);
+		}
 		this.options.push('--top=' + maxNumberOfProblems);
 	}
 }
