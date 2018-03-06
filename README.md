@@ -22,6 +22,8 @@ This extension contributes the following settings:
 * `perlcritic.severity`: severity level (**default: gentle**, options: 'gentle', 'stern', 'harsh', 'cruel' or 'brutal')
 * `perlcritic.maxNumberOfProblems`: the maximum number of problems to show at any given time (default: 10)
 * `perlcritic.additionalArguments`: any additional arguments for perlcritic
+    * NOTE: example for using a profile
+        * `"perlcritic.additionalArguments": ["--profile", "/your/path/to/.perlcriticrc"]`
     * NOTE: arguments that change the output format could result in errors e.g:
         * --count
         * --verbose
