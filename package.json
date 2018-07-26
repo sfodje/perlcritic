@@ -1,0 +1,89 @@
+{
+	"name": "perlcritic",
+	"description": "A Language Server For The Perl Programming Language",
+	"author": "sfodje",
+	"license": "MIT",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sfodje/perlcritic"
+	},
+	"publisher": "sfodje",
+	"categories": [
+		"Linters",
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:perl"
+	],
+	"engines": {
+		"vscode": "^1.23.0"
+	},
+	"main": "./client/out/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Perl::Critic Configuration",
+			"properties": {
+				"perlcritic.executable": {
+					"type": "string",
+					"default": "perlcritic",
+					"description": "Path to 'linter' executable"
+				},
+				"perlcritic.severity": {
+					"type": "string",
+					"enum": [
+						"brutal",
+						"cruel",
+						"harsh",
+						"stern",
+						"gentle"
+					],
+					"default": "gentle",
+					"description": "Name of perlcritic level of severity"
+				},
+				"perlcritic.additionalArguments": {
+					"type": "array",
+					"default": [],
+					"description": "Additional arguments for Perl::Critic e.g. [--single-policy=xxxxx', --top=20']"
+				},
+				"perlcritic.onSave": {
+					"type": "boolean",
+					"default": false,
+					"description": "Only critique on save"
+				},
+				"perlcritic.maxNumberOfProblems": {
+					"type": "number",
+					"default": 10,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"perlcritic.trace.server": {
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Traces the communication between VSCode and the perlcritic service."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+		"compile:client": "tsc -p ./client/tsconfig.json",
+		"compile:server": "tsc -p ./server/tsconfig.json",
+		"watch:client": "tsc -w -p ./client/tsconfig.json",
+		"watch:server": "tsc -w -p ./server/tsconfig.json",
+		"compile": "npm run compile:client && npm run compile:server",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.0",
+		"@types/node": "^8.0.0",
+		"typescript": "2.8.3"
+	},
+	"dependencies": {}
+}
