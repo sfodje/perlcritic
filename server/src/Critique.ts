@@ -24,7 +24,7 @@ export default class Critique {
 
         this.line = lineInt > 0 ? lineInt - 1 : 0;
         this.column = columnInt > 0 ? columnInt - 1 : 0;
-        this.severity = severityInt > 0 ? severityInt - 1 : 0;
+        this.severity = severityInt > 0 ? severityInt : 0;
         this.summary = summaryStr.trim();
         this.explanation = explanationStr.trim();
         return;
