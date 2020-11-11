@@ -131,7 +131,7 @@ function mergeSettings(newSettings: PerlcriticSettings): PerlcriticSettings {
 	// Only set severity if user does not specify a profile,
 	// because perlcritic will ignore the profile if severity is set.
 	// Tested on a Mac with perlcritic v1.130, Perl v5.26.1.
-	if (newSettings.additionalArguments.indexOf("--profile") < 0 || newSettings.additionalArguments.indexOf("-p") < 0) {
+	if (newSettings.additionalArguments.indexOf("--profile") === -1 && newSettings.additionalArguments.indexOf("-p") === -1) {
 		newSettings.additionalArguments.push(`--${newSettings.severity}`);
 	}
 
