@@ -93,7 +93,7 @@ const defaultSettings: PerlcriticSettings = {
 	executable: validateExecutable("perlcritic"),
 	severity: "gentle",
 	onSave: false,
-	additionalArguments: ['--quiet', ["--verbose", "%l[>]%c[>]%s[>]%m. %e[>]%d[[END]]"].join('=')]
+	additionalArguments: ['--quiet', ["--verbose", "%l[>]%c[>]%s[>]%m. %e (%p)[>]%d[[END]]"].join('=')]
 };
 let globalSettings: PerlcriticSettings = defaultSettings;
 
