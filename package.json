@@ -17,7 +17,7 @@
 		"onLanguage:perl"
 	],
 	"engines": {
-		"vscode": "^1.23.0"
+		"vscode": "^1.57.0"
 	},
 	"main": "./client/out/extension",
 	"contributes": {
