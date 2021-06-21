@@ -3,7 +3,7 @@
 import Critique from './Critique';
 
 export default class Output {
-    error: string;
+    error: string|undefined;
     critiques: Array<Critique> = [];
 
     constructor(outputStr: string, errorStr?: string) {

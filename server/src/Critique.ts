@@ -1,10 +1,10 @@
 export default class Critique {
-    line: number;
-    column: number;
-    severity: number;
-    summary: string;
-    explanation: string;
-    error: string;
+    line!: number;
+    column!: number;
+    severity!: number;
+    summary!: string;
+    explanation!: string;
+    error: string|undefined;
 
     constructor(outputText: string) {
         if (!outputText) return;
@@ -27,7 +27,7 @@ export default class Critique {
         this.severity = severityInt > 0 ? severityInt : 0;
         this.summary = summaryStr.trim();
         this.explanation = explanationStr.trim();
-        return;
+        
     }
 
     private isNumber(n: any) {
