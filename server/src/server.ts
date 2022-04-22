@@ -18,6 +18,8 @@ import {
 import {TextDocument} from 'vscode-languageserver-textdocument';
 
 import * as child_process from 'child_process';
+import { accessSync, constants } from 'fs';
+
 import Critique from './Critique';
 import Output from './Output';
 import * as which from 'which';
@@ -85,7 +87,7 @@ interface PerlcriticSettings {
 // but could happen with other clients.
 const defaultSettings: PerlcriticSettings = {
 	maxNumberOfProblems: 10,
-	executable: validateExecutable("perlcritic"),
+	executable: "perlcritic",
 	severity: "gentle",
 	onSave: false,
 	additionalArguments: ['--quiet', ["--verbose", "%l[>]%c[>]%s[>]%m. %e (%p)[>]%d[[END]]"].join('=')]
@@ -103,14 +105,30 @@ connection.onDidChangeConfiguration(change => {
 	documents.all().forEach(validateTextDocument);
 });
 
+// we need a cache for validateExecutable is a bit slow
+let __validateExecutableCache: Array<string> = [];
+
 function validateExecutable(executable: string): string {
-	try {
-		return which.sync(executable);
+	if (__validateExecutableCache.length == 0 || __validateExecutableCache[0] != executable) {
+		let result: string = "";
+		try {
+			// path with '/' are considered to be valid if file is runnable
+			if (executable.indexOf("/") > -1) {
+				try {
+					accessSync(executable, constants.X_OK);
+					result = executable;
+				} catch (error) {
+					// not an executable, continue
+				}
+			}
+			result = which.sync(executable);
+		}
+		catch (error) {
+			connection.window.showErrorMessage("" + error);
+		}
+		__validateExecutableCache = [executable, result];
 	}
-	catch (error) {
-		connection.window.showErrorMessage(error);
-		return "";
-	}
+	return __validateExecutableCache[1]
 }
 
 function mergeSettings(newSettings: PerlcriticSettings): PerlcriticSettings {
@@ -118,7 +136,7 @@ function mergeSettings(newSettings: PerlcriticSettings): PerlcriticSettings {
 		return defaultSettings;
 	}
 
-	newSettings.executable = validateExecutable(newSettings.executable);
+	newSettings.executable = newSettings.executable;
 
 	// Only set severity if user does not specify a profile,
 	// because perlcritic will ignore the profile if severity is set.
@@ -157,7 +175,8 @@ function validate(text: string): Promise<Output> {
 	return new Promise(resolve => {
 		try {
 			let spawn = child_process.spawn;
-			let worker = spawn(globalSettings.executable, globalSettings.additionalArguments);
+			const executable = validateExecutable(globalSettings.executable);
+			let worker = spawn(executable, globalSettings.additionalArguments);
 			worker.stdin.write(text);
 			worker.stdin.end();
 
