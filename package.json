@@ -3,7 +3,7 @@
 	"description": "A Language Server For The Perl Programming Language",
 	"author": "sfodje",
 	"license": "MIT",
-	"version": "1.3.1",
+	"version": "1.3.8",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sfodje/perlcritic"
@@ -83,7 +83,7 @@
 		"@typescript-eslint/eslint-plugin": "^4.23.0",
 		"@typescript-eslint/parser": "^4.23.0",
 		"eslint": "^7.26.0",
-		"mocha": "^8.3.2",
+		"mocha": "^9.2.2",
 		"typescript": "^4.3.2"
 	}
 }

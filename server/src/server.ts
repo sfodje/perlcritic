@@ -195,7 +195,7 @@ function validate(text: string): Promise<Output> {
 			});
 		}
 		catch (error) {
-			resolve(new Output('', error));
+			resolve(new Output('', error as string));
 			return;
 		}
 	});
